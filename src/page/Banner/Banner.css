@@ -1,0 +1,179 @@
+textarea {
+  width: 100%;
+  min-height: 120px;
+  padding: 12px 15px;
+
+  /* Border yang lebih halus */
+  border: 1px solid #ced4da;
+  border-radius: 8px;
+
+  /* Font yang mudah dibaca */
+  font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #343a40;
+
+  /* Efek saat fokus */
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* Efek saat textarea aktif (fokus) */
+textarea:focus {
+  outline: none;
+  border-color: var(--gradient);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+}
+
+/* Placeholder yang lebih menarik */
+textarea::placeholder {
+  color: #6c757d;
+  opacity: 0.8;
+}
+
+/* Jika kamu ingin menghilangkan resize handle */
+textarea {
+  resize: vertical;
+}
+
+.modern-upload-area {
+  border: 2px dashed #031833;
+  border-radius: 10px;
+  background-color: #f8f9fa;
+  padding: 30px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  height: 55vh;
+}
+
+.modern-upload-area:hover {
+  background-color: #e9ecef;
+  border-color: var(--gradient);
+}
+
+.hidden-file-input {
+  display: none;
+}
+
+.upload-label {
+  display: block;
+  cursor: pointer;
+}
+
+.upload-icon {
+  margin-bottom: 15px;
+  color: var(--gradient);
+}
+
+.upload-icon svg {
+  width: 50px;
+  height: 50px;
+}
+
+.upload-text {
+  font-size: 18px;
+  color: #343a40;
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+
+.upload-subtext {
+  font-size: 14px;
+  color: #6c757d;
+  margin-top: 0;
+}
+
+.file-name-display {
+  margin-top: 20px;
+  font-size: 15px;
+  color: #28a745;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* Dalam file Banner.css */
+
+.hidden-file-input {
+  display: none;
+}
+
+.modern-upload-area {
+  border: 2px dashed #ccc;
+  border-radius: 8px;
+  min-height: 200px; /* Tinggi minimal area upload */
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background-color: #f9f9f9;
+  position: relative; /* Penting untuk penempatan preview dan tombol X */
+  overflow: hidden; /* Pastikan konten tidak meluber */
+  width: 100%; /* Agar memenuhi lebar kontainer parent */
+}
+
+.modern-upload-area:hover {
+  border-color: #007bff;
+}
+
+.modern-upload-area.drag-over {
+  border-color: #28a745;
+  background-color: #e6ffe6;
+}
+
+.upload-icon svg {
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.upload-text {
+  color: #333;
+  font-weight: bold;
+}
+
+.upload-subtext {
+  color: #888;
+  font-size: 0.9em;
+}
+
+/* --- Gaya untuk kontainer preview video --- */
+.video-preview-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: black;
+  border-radius: 8px;
+}
+
+.video-preview {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+/* --- Gaya untuk tombol hapus/clear video (ikon X) --- */
+.clear-video-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: rgba(214, 47, 47, 0.7);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  z-index: 10;
+  transition: background-color 0.2s ease;
+}
+
+.clear-video-button:hover {
+  background-color: rgba(255, 0, 0, 0.9);
+}

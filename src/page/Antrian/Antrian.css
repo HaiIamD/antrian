@@ -1,0 +1,94 @@
+.navbarAntrian {
+  border-bottom: 3px solid var(--primaryColor);
+}
+
+.kotakLiveAntrian {
+  height: 45vh;
+  border-radius: 20px;
+  background: var(--gradient);
+  color: var(--white);
+  background-image: var(--gambar2); /* Path ke gambar yang ingin Anda gunakan */
+  background-size: cover; /* Untuk mengisi area dengan gambar */
+  background-position: center; /* Untuk memposisikan gambar di tengah-tengah */
+  height: 100%; /* Sesuaikan tinggi dengan kebutuhan Anda */
+}
+
+.videoWrapper {
+  overflow: hidden;
+  height: 45vh;
+  border-radius: 20px;
+  width: 100%;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* soft shadow */
+  background: var(--gradient);
+}
+
+.videoElement {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.kotakLiveLocket {
+  height: 28vh;
+  border-radius: 20px;
+  background: var(--gradient);
+  color: var(--white);
+}
+
+.bannerText {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  overflow: hidden;
+  background: var(--gradient);
+  color: var(--white);
+  font-size: 24px;
+  white-space: nowrap;
+  font-weight: 600;
+}
+
+.bannerText span {
+  display: inline-block;
+  padding-left: 100%;
+  animation: slideBanner 35s linear infinite;
+}
+
+@keyframes slideBanner {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.titleLiveAntrian {
+  color: var(--white);
+  font-size: 35pt;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.nomerLiveAntrian {
+  color: var(--white);
+  font-size: 100pt;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.titleLiveLocket {
+  color: var(--white);
+  font-size: 20pt;
+  text-transform: uppercase;
+  line-height: 1.3;
+  font-weight: 700;
+}
+
+.nomerLiveLocket {
+  color: var(--white);
+  line-height: 1.3;
+  font-size: 80pt;
+  text-transform: uppercase;
+  font-weight: 700;
+}

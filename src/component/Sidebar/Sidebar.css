@@ -1,0 +1,153 @@
+.sideBar {
+  background: var(--white);
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  position: fixed;
+}
+
+.logoSidebar {
+  height: 4rem;
+}
+
+.logoTextSidebar {
+  font-size: 11pt;
+  font-weight: 700;
+  color: var(--primaryColor);
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.menuItemActive {
+  color: var(--white);
+  background: var(--gradient);
+  font-size: 16px;
+  font-weight: 700;
+  border-radius: 20px;
+  padding: 12px;
+  text-decoration: none;
+}
+
+.menuIconActive {
+  color: var(--white);
+  font-size: 30px;
+}
+.menuItemActive:hover {
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* soft shadow */
+}
+
+.menuItem {
+  position: relative;
+  color: var(--primaryColor);
+  font-size: 16px;
+  font-weight: 700;
+  border-radius: 60px;
+  padding: 12px;
+  display: inline-block;
+  transition: color 0.3s ease;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.menuItem::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 5%;
+  width: 90%;
+  height: 2px;
+  background: var(--gradient);
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.3s ease;
+}
+
+.menuItem:hover::after {
+  transform: scaleX(1);
+}
+
+.menuIcon {
+  color: var(--gradient);
+  font-size: 30px;
+}
+
+.textWhite {
+  color: var(--white);
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.buttonLogout {
+  background: var(--white);
+  color: var(--primaryColor);
+  font-weight: 700;
+  padding: 10px 0px;
+  border-radius: 18px;
+  border: none;
+  width: 100%;
+  transition: background 0.3s ease;
+  cursor: pointer;
+}
+
+.buttonLogout:hover {
+  background: #e71c1c; /* soft red background */
+  color: var(--white);
+}
+
+.kotakLogout {
+  background: var(--gradient);
+  border-radius: 30px;
+}
+
+.buttonSimpanAntrian {
+  background: var(--secondaryColor);
+  color: var(--primaryColor);
+  font-weight: 700;
+  padding: 10px 0px;
+  border-radius: 18px;
+  border: none;
+  width: 100%;
+  transition: background 0.3s ease;
+  cursor: pointer;
+}
+.buttonSimpanAntrian:hover {
+  background: var(--white); /* soft red background */
+  color: var(--gradient);
+}
+
+@media (max-width: 1890px) {
+  .logoSidebar {
+    height: 3rem;
+  }
+
+  .logoTextSidebar {
+    font-size: 10pt;
+  }
+}
+
+@media (max-width: 1650px) {
+  .logoSidebar {
+    height: 2.5rem;
+  }
+  .logoTextSidebar {
+    font-size: 8pt;
+  }
+  .menuItemActive {
+    font-size: 14px;
+  }
+  .menuIconActive {
+    color: var(--white);
+    font-size: 26px;
+  }
+  .menuItem {
+    font-size: 14px;
+  }
+  .menuIcon {
+    font-size: 26px;
+  }
+  .textWhite {
+    font-size: 14px;
+  }
+}

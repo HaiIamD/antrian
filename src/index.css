@@ -1,0 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&display=swap');
+
+:root {
+  --primaryColor: #031833;
+  --secondaryColor: #f6f25d;
+  --white: #fff;
+  --whiteSmoke: #eaeaea;
+  --gambar: url('/assets/background.png');
+  --gambar2: url('/assets/background2.png');
+  --gradient: linear-gradient(143deg, rgba(3, 24, 51, 1) 16%, rgba(57, 82, 107, 1) 100%);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+  scroll-behavior: smooth;
+  transition: all 100ms linear;
+}
+.app {
+  background: var(--bg);
+}

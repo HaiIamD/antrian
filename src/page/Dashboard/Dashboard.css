@@ -1,0 +1,75 @@
+body::-webkit-scrollbar {
+  display: none; /* Sembunyikan scrollbar */
+}
+
+.backgroundSmoke {
+  background: var(--whiteSmoke);
+}
+
+.boxLayananHariIni {
+  background: var(--white);
+  border-radius: 15px;
+  color: var(--primaryColor);
+}
+
+.boxLayananAntrian {
+  background: var(--white);
+  border-radius: 15px;
+  color: var(--primaryColor);
+}
+
+.kotakDashboardBlue {
+  background: var(--gradient);
+  font-size: 16px;
+  color: var(--white);
+  font-weight: 600;
+  height: 25vh;
+  border-radius: 15px;
+}
+.kotakDashboard {
+  background: var(--whiteSmoke);
+  font-size: 16px;
+  color: var(--primaryColor);
+  font-weight: 600;
+  height: 25vh;
+  border-radius: 15px;
+}
+
+.dataLocketBlue {
+  font-size: 90px;
+  font-weight: 700;
+  color: var(--white);
+}
+
+.dataLocket {
+  font-size: 90px;
+  font-weight: 700;
+  color: var(--primaryColor);
+}
+
+.kotakLockethistory {
+  background-color: var(--whiteSmoke);
+  color: var(--primaryColor);
+  font-size: 16px;
+  font-weight: 700;
+  height: 18vh;
+  border-radius: 15px;
+}
+
+.dataLocketHistory {
+  font-size: 60px;
+  font-weight: 700;
+  color: var(--primaryColor);
+}
+
+.primaryTextTitle {
+  font-size: 21px;
+  color: var(--primaryColor);
+  font-weight: 700;
+}
+.no-arrow {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: none;
+}

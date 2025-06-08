@@ -1,0 +1,91 @@
+.kotakLogin {
+  border: 2px solid var(--whiteSmoke);
+  border-radius: 10px;
+  background-color: #fff; /* Tambahkan jika background transparan */
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08); /* Shadow soft dan modern */
+  transition: box-shadow 0.3s ease;
+}
+
+.kotakLogin:hover {
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.12); /* Sedikit lebih tegas saat hover */
+}
+
+.logoLogin {
+  height: 3.5rem;
+}
+.logoTextLogin {
+  font-size: 12pt;
+  font-weight: bolder;
+  color: var(--primaryColor);
+  line-height: 1.3;
+  text-transform: uppercase;
+}
+
+.username {
+  font-size: 14px;
+  color: var(--primaryColor);
+  font-weight: 600;
+}
+
+.input {
+  border: none;
+  border-bottom: 2px solid var(--primaryColor);
+  border-radius: 0;
+  outline: none;
+  box-shadow: none;
+  background-color: transparent;
+  font-size: 16px;
+  padding: 8px 4px;
+  transition: border-color 0.3s ease;
+  color: var(--primaryColor);
+}
+
+.input:focus {
+  border-bottom: 2px solid var(--secondaryColor);
+  background-color: transparent;
+  box-shadow: none;
+}
+
+.input::placeholder {
+  color: var(--primaryColor);
+  opacity: 0.5;
+}
+
+.buttonLogin {
+  background: var(--primaryColor);
+  color: var(--white);
+  font-size: 14px;
+  font-weight: 600;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Hover modern */
+.buttonLogin:hover {
+  background: var(--secondaryColor); /* atau bisa pakai shade dari primary */
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+  color: var(--primaryColor);
+}
+
+@media (max-width: 1800px) {
+  .logoLogin {
+    height: 3.2rem;
+  }
+  .logoTextLogin {
+    font-size: 10pt;
+  }
+}
+
+@media (max-width: 1200px) {
+  .logoLogin {
+    height: 3.5rem;
+  }
+  .logoTextLogin {
+    font-size: 12pt;
+  }
+}

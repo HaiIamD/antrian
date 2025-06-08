@@ -1,0 +1,38 @@
+.userNavbar {
+  background: var(--white);
+  font-weight: 700;
+  color: var(--primaryColor);
+  border-radius: 15px;
+}
+
+.tag {
+  background: var(--primaryColor);
+  color: var(--white);
+  font-weight: 700;
+  border-radius: 15px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.tag:hover {
+  cursor: pointer;
+  background-color: transparent;
+  color: var(--primaryColor);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--primaryColor);
+}
+
+.tagUser {
+  background: var(--primaryColor);
+  color: var(--white);
+  font-weight: 700;
+  border-radius: 15px;
+  border: 1px solid transparent;
+}
+
+.primaryText {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--primaryColor);
+}
