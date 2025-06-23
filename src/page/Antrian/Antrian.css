@@ -1,3 +1,10 @@
+.antrian-container {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  padding-bottom: 50px; /* Beri ruang untuk banner agar tidak menutupi konten lain */
+}
+
 .navbarAntrian {
   border-bottom: 3px solid var(--primaryColor);
 }
@@ -91,4 +98,50 @@
   font-size: 80pt;
   text-transform: uppercase;
   font-weight: 700;
+}
+
+/* --- Aturan Responsif untuk Mobile (Layar di bawah 768px) --- */
+@media (max-width: 767.98px) {
+  /* Ukuran logo di navbar */
+  .logo {
+    height: 3rem;
+  }
+  .logoText {
+    font-size: 10pt;
+  }
+
+  /* Atur ulang tinggi kotak utama dan video */
+  .kotakLiveAntrian,
+  .videoWrapper {
+    height: 35vh;
+  }
+
+  /* Atur ulang tinggi kotak loket kecil */
+  .kotakLiveLocket {
+    height: 20vh;
+  }
+
+  /* Kecilkan semua ukuran font secara drastis */
+  .titleLiveAntrian {
+    font-size: 24px; /* dari 35pt */
+  }
+
+  .nomerLiveAntrian {
+    font-size: 5rem; /* dari 100pt */
+  }
+
+  .titleLiveLocket {
+    font-size: 14px; /* dari 20pt */
+    line-height: 1.2;
+  }
+
+  .nomerLiveLocket {
+    font-size: 3rem; /* dari 80pt */
+    line-height: 1.2;
+  }
+
+  .bannerText {
+    font-size: 16px; /* dari 24px */
+    padding: 8px 0;
+  }
 }

@@ -1,11 +1,11 @@
-.sideBar {
+/* .sideBar {
   background: var(--white);
   border-top-right-radius: 20px;
   border-bottom-right-radius: 20px;
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
   position: fixed;
-}
+} */
 
 .logoSidebar {
   height: 4rem;
@@ -151,3 +151,49 @@
     font-size: 14px;
   }
 }
+
+/* Ubah styling .sideBar yang sudah ada */
+.sideBar {
+  background: var(--white);
+  border-radius: 0; /* Hapus radius untuk mobile view */
+  position: fixed; /* Wajib fixed untuk bisa overlay */
+  top: 0;
+  left: 0;
+  height: 100vh;
+  z-index: 1040; /* Z-index harus tinggi agar di paling depan */
+  width: 280px; /* Beri lebar tetap untuk sidebar mobile */
+  transform: translateX(-100%); /* Sembunyikan ke kiri layar */
+  transition: transform 0.3s ease-in-out;
+}
+
+/* Saat class .show ditambahkan, sidebar akan muncul */
+.sideBar.show {
+  transform: translateX(0);
+}
+
+/* Tombol close di dalam sidebar (hanya untuk mobile) */
+.close-button {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 30px;
+  color: var(--primaryColor);
+  cursor: pointer;
+}
+
+/* KEMBALIKAN TAMPILAN DESKTOP */
+/* Aturan untuk layar besar (xl ke atas) */
+@media (min-width: 1200px) {
+  .sideBar {
+    position: sticky; /* Kembalikan ke posisi normal (tidak fixed) */
+    transform: none; /* Hapus transform */
+    width: auto; /* Biarkan lebar diatur oleh Bootstrap (col-xl-2) */
+    height: auto; /* Biarkan tinggi menyesuaikan */
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+  }
+}
+
+/* Sisa CSS Anda yang lain... */

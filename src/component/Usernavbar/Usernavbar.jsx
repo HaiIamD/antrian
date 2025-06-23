@@ -21,9 +21,12 @@ function Usernavbar() {
   return (
     <div className="userNavbar d-flex flex-wrap justify-content-between align-items-center py-2 px-4">
       <span className="primaryTextTitle ps-3">{user?.userName}</span>
-      <div className="primaryText">
+
+      {/* Jam akan hilang di bawah layar 'large' (lg) */}
+      <div className="primaryText d-none d-md-block mx-auto">
         <JakartaClock />
       </div>
+
       <div className="p-2 px-4 tagUser me-3">{user?.role === 'admin' ? 'Administrator' : user?.role === 'staff' ? `Locket ${user?.locket || ''}` : ''}</div>
     </div>
   );

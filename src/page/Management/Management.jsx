@@ -7,6 +7,7 @@ import { MdClose } from 'react-icons/md';
 import Swal from 'sweetalert2';
 import { decryptData } from '../../component/Encrypt/Encrypt';
 import { useSelector } from 'react-redux';
+import { FaBars } from 'react-icons/fa';
 
 function Management() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -14,6 +15,7 @@ function Management() {
   const [currentUser, setCurrentUser] = useState(null);
   const encryptedUser = useSelector((state) => state.token);
   const [token, setToken] = useState('');
+  const [isSidebarOpen, setSidebarOpen] = useState(false);
 
   const [newUserData, setNewUserData] = useState({
     userName: '',
@@ -23,6 +25,10 @@ function Management() {
   });
 
   const [usersData, setUsersData] = useState([]);
+
+  const toggleSidebar = () => {
+    setSidebarOpen(!isSidebarOpen);
+  };
 
   const openAddModal = () => {
     setIsEditMode(false);
@@ -309,9 +315,14 @@ function Management() {
   return (
     <div className="d-flex flex-wrap vh-100">
       <div className="col-0 col-xl-2 backgroundSmoke">
-        <Sidebar />
+        <Sidebar isOpen={isSidebarOpen} toggle={toggleSidebar} />
       </div>
       <div className="col-12 col-xl-10 backgroundSmoke d-flex flex-column p-3">
+        <div className="hamburger-container d-xl-none">
+          <button className="hamburger-button" onClick={toggleSidebar}>
+            <FaBars />
+          </button>
+        </div>
         <Usernavbar />
         <div className="col-12 boxLayananHariIni mt-3 p-4">
           <div className="d-flex flex-wrap justify-content-between align-items-center px-3">

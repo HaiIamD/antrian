@@ -2,16 +2,25 @@ import React from 'react';
 import { io } from 'socket.io-client'; // Import Socket.IO
 import './Pengambilan.css';
 import Swal from 'sweetalert2'; // Import SweetAlert2
+import { FaBook, FaBalanceScale, FaWheelchair } from 'react-icons/fa';
+import { HiLightBulb } from 'react-icons/hi';
 
 // Inisialisasi koneksi Socket.IO
 const socket = io(`${import.meta.env.VITE_SOCKET_PORT}`);
 
+const layananData = [
+  { id: 1, nama: 'Pelayanan Hukum Umum', icon: <FaBook /> },
+  { id: 2, nama: 'Kekayaan Intelektual', icon: <HiLightBulb /> },
+  { id: 3, nama: 'Layanan Hukum', icon: <FaBalanceScale /> },
+  { id: 4, nama: 'Disabilitas dan Pengaduan Masyarakat', icon: <FaWheelchair /> },
+];
+
 function Pengambilan() {
   // Fungsi untuk menangani klik pada kotak layanan
-  const handleLayananClick = (locketId) => {
+  const handleLayananClick = (locketId, locketName) => {
     Swal.fire({
       title: 'Konfirmasi Pengambilan Antrean',
-      text: `Anda akan mengambil nomor antrean untuk Loket ${locketId}. Lanjutkan?`,
+      text: `Anda akan mengambil nomor antrean untuk Loket ${locketName}. Lanjutkan?`,
       icon: 'question',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -24,14 +33,14 @@ function Pengambilan() {
         socket.emit('requestQueueNumber', { locketId });
 
         // Tampilkan loading/proses ke pengguna
-        Swal.fire({
-          title: 'Memproses...',
-          text: 'Sedang mengambil nomor antrean Anda. Mohon tunggu.',
-          allowOutsideClick: false,
-          didOpen: () => {
-            Swal.showLoading();
-          },
-        });
+        // Swal.fire({
+        //   title: 'Memproses...',
+        //   text: 'Sedang mengambil nomor antrean Anda. Mohon tunggu.',
+        //   allowOutsideClick: false,
+        //   didOpen: () => {
+        //     Swal.showLoading();
+        //   },
+        // });
       }
     });
   };
@@ -40,6 +49,7 @@ function Pengambilan() {
   React.useEffect(() => {
     // Event ketika nomor antrean berhasil diberikan
     socket.on('queueNumberAssigned', ({ locketId, nomorAntrian }) => {
+      Swal.close();
       Swal.fire({
         icon: 'success',
         title: 'Nomor Antrean Anda:',
@@ -69,7 +79,7 @@ function Pengambilan() {
 
   return (
     <div className="container-fluid gambarBackground col-12">
-      <div className="col-3 d-flex justify-content-end align-items-center absoluteImage">
+      <div className="col-3 d-flex justify-content-end align-items-center absoluteImage d-none d-md-flex">
         <img src="/assets/logo.png" alt="Kemenkumham Logo" className="logo" />
         <span className="logoText px-3">
           LAYANAN ANTRIAN KEMENTERIAN <br /> HUKUM KEPULAUAN RIAU
@@ -77,27 +87,20 @@ function Pengambilan() {
       </div>
 
       <div className="col-12 d-flex flex-column justify-content-center align-items-center ">
-        <span className="titleSelection mb-4">Silahkan Memilih Jenis Layanan</span>
-        <div className="col-lg-8 col-xl-6 d-flex flex-wrap justify-content-center align-items-center gap-4">
-          {/* Kotak Layanan 1 - Diasumsikan untuk Loket 1 */}
-          <div
-            className="kotakLayanan d-flex align-items-center justify-content-center col-5"
-            onClick={() => handleLayananClick(1)} // Panggil fungsi dengan ID loket
-          >
-            Layanan Imigrasi
-          </div>
-          {/* Kotak Layanan 2 - Diasumsikan untuk Loket 2 */}
-          <div className="kotakLayanan d-flex align-items-center justify-content-center col-5" onClick={() => handleLayananClick(2)}>
-            Layanan Pemasyarakatan
-          </div>
-          {/* Kotak Layanan 3 - Diasumsikan untuk Loket 3 */}
-          <div className="kotakLayanan d-flex align-items-center justify-content-center col-5" onClick={() => handleLayananClick(3)}>
-            Layanan AHU
-          </div>
-          {/* Kotak Layanan 4 - Diasumsikan untuk Loket 4 */}
-          <div className="kotakLayanan d-flex align-items-center justify-content-center col-5" onClick={() => handleLayananClick(4)}>
-            Layanan Bantuan Hukum
-          </div>
+        <span className="titleSelection mb-4 text-center">Silahkan Memilih Jenis Layanan</span>
+
+        {/* --- PERUBAHAN 1: Buat container lebih fleksibel --- */}
+        <div className="col-12 col-md-10 col-lg-8 col-xl-6 d-flex flex-wrap justify-content-center align-items-center gap-2 gap-sm-4">
+          {layananData.map((layanan) => (
+            <div
+              key={layanan.id}
+              className="kotakLayanan d-flex flex-column align-items-center justify-content-center text-center col-5 col-sm-6 col-lg-5 p-3 p-md-4"
+              onClick={() => handleLayananClick(layanan.id, layanan.nama)}
+            >
+              <div className="iconKotakLayanan">{layanan.icon}</div>
+              <span className="pt-3 namaLayanan">{layanan.nama}</span>
+            </div>
+          ))}
         </div>
       </div>
     </div>

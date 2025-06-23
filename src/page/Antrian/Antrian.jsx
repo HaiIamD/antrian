@@ -202,11 +202,11 @@ function Antrian() {
   }, []); // [] agar hanya dijalankan sekali saat komponen dimuat
 
   return (
-    <div>
+    <div className="antrian-container">
       <div className="container-fluid p-4 px-5">
         {/* Navbar */}
-        <div className="col-12 pt-2 pb-3 d-flex flex-wrap justify-content-between align-items-center navbarAntrian">
-          <div className="d-flex flex-wrap align-items-center">
+        <div className="col-12 pt-2 pb-3 d-flex flex-column flex-md-row justify-content-center align-items-center text-center text-md-start justify-content-md-between navbarAntrian">
+          <div className="d-flex flex-wrap align-items-center justify-content-center flex-column flex-md-row">
             <img src="/assets/logo.png" alt="Kemenkumham Logo" className="logo" />
             <span className="logoText px-3">
               KANTOR WILAYAH KEMENTERIAN HUKUM <br />
@@ -221,7 +221,7 @@ function Antrian() {
         {/* Body */}
         <div className="col-12 d-flex flex-wrap my-2">
           {/* Kotak Antrian Utama (yang besar) */}
-          <div className="col-6 p-3">
+          <div className="col-12 col-lg-6 p-3">
             <div className="col-12 bg-warning kotakLiveAntrian d-flex flex-column justify-content-center align-items-center">
               <span className="titleLiveAntrian">Antrian</span>
               <span className="nomerLiveAntrian">
@@ -232,7 +232,7 @@ function Antrian() {
               </span>
             </div>
           </div>
-          <div className="col-6 p-3">
+          <div className="col-12 col-lg-6 p-3">
             <div className="videoWrapper">
               <video src={videoPreviewUrl} className="videoElement" autoPlay muted loop playsInline></video>
             </div>
@@ -241,7 +241,7 @@ function Antrian() {
 
         <div className="col-12 d-flex flex-wrap">
           {[1, 2, 3, 4].map((loketNum) => (
-            <div className="col-3 px-3" key={loketNum}>
+            <div className="col-6 col-md-3 p-2" key={loketNum}>
               <div className="col-12 bg-warning kotakLiveLocket d-flex flex-column justify-content-center align-items-center">
                 <span className="titleLiveLocket">Antrian</span>
                 <span className="nomerLiveLocket">

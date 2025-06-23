@@ -5,6 +5,7 @@ import LineChart from '../../component/Chart/Linechart';
 import DoughnutChart from '../../component/Chart/Piechart';
 import './Dashboard.css';
 import Swal from 'sweetalert2';
+import { FaBars } from 'react-icons/fa';
 
 function Dashboard() {
   const [locketDataToday, setLocketDataToday] = useState([]);
@@ -13,11 +14,17 @@ function Dashboard() {
   const [filteredLocketData, setFilteredLocketData] = useState(null);
   const [filteredDataMapped, setFiltedDataMapped] = useState(null);
   const [selectedDays, setSelectedDays] = useState(30);
+  const [isSidebarOpen, setSidebarOpen] = useState(false);
 
   const [loadingLocketData, setLoadingLocketData] = useState(true);
   const [errorLocketData, setErrorLocketData] = useState(null);
+  const [errorLocketDataWeek, setErrorLocketDataWeek] = useState(null);
   const [loadingFilterData, setLoadingFilterData] = useState(false);
   const [errorFilterData, setErrorFilterData] = useState(null);
+
+  const toggleSidebar = () => {
+    setSidebarOpen(!isSidebarOpen);
+  };
 
   const fetchFilteredLocketData = async (days) => {
     try {
@@ -118,7 +125,7 @@ function Dashboard() {
         }
 
         const data = await response.json();
-
+        console.log(data);
         setWeekLocketData(data);
         if (data && data.datasets) {
           const mappedData = {};
@@ -133,13 +140,7 @@ function Dashboard() {
         }
       } catch (error) {
         console.error('Error fetching locket data:', error);
-        setErrorLocketData(error.message);
-        Swal.fire({
-          icon: 'error',
-          title: 'Error!',
-          text: error.message || 'Gagal memuat data layanan. Silakan coba lagi.',
-          confirmButtonText: 'Oke',
-        });
+        setErrorLocketDataWeek(error.message);
       } finally {
         setLoadingLocketData(false);
       }
@@ -154,20 +155,25 @@ function Dashboard() {
   }, [selectedDays]);
 
   return (
-    <div className="d-flex flex-wrap">
+    <div className={`d-flex flex-wrap ${isSidebarOpen ? 'sidebar-overlay' : ''}`}>
       <div className="col-0 col-xl-2 backgroundSmoke">
-        <Sidebar />
+        <Sidebar isOpen={isSidebarOpen} toggle={toggleSidebar} />
       </div>
       <div className="col-12 col-xl-10 backgroundSmoke d-flex flex-column p-3">
+        <div className="hamburger-container d-xl-none">
+          <button className="hamburger-button" onClick={toggleSidebar}>
+            <FaBars />
+          </button>
+        </div>
         <Usernavbar />
         <div className="col-12 boxLayananHariIni my-3 p-4">
           <span className="primaryTextTitle ps-3"> Layanan Hari Ini</span>
           <div className="d-flex flex-wrap justify-content-center align-items-center ps-3 my-4">
             {loadingLocketData && <p>Memuat data layanan...</p>}
-            {errorLocketData && <p style={{ color: 'red' }}>Error: {errorLocketData}</p>}
+            {errorLocketData && <p style={{ color: 'red' }}>{errorLocketData}</p>}
             {!loadingLocketData && !errorLocketData && locketDataToday.length > 0
               ? locketDataToday.map((locket, index) => (
-                  <div key={locket._id} className="col-3 pe-3">
+                  <div key={locket._id} className="col-12 col-sm-6 col-lg-3 p-2">
                     <div className={` ${index === 0 ? 'kotakDashboardBlue' : 'kotakDashboard'} d-flex flex-column align-items-center justify-content-center`}>
                       <span>Locket {locket.locket}</span>
                       <span className={index === 0 ? 'dataLocketBlue' : 'dataLocket'}>{locket.currentQueue}</span>
@@ -185,7 +191,12 @@ function Dashboard() {
             </div>
           </div>
           <div className="d-flex flex-wrap align-items-center mt-4 mb-3">
-            <div className="col-6 px-1 d-flex flex-wrap justify-content-between">
+            {errorLocketDataWeek && (
+              <p class=" col-12" style={{ color: 'red', textAlign: 'center' }}>
+                {errorLocketDataWeek}
+              </p>
+            )}
+            <div className="col-12 col-md-6 px-1 d-flex flex-wrap justify-content-between">
               {locketDataMapped && Object.keys(locketDataMapped).length > 0
                 ? Object.keys(locketDataMapped).map((locketName) => (
                     <div className="col-6 p-2" key={locketName}>
@@ -195,10 +206,10 @@ function Dashboard() {
                       </div>
                     </div>
                   ))
-                : !loadingLocketData && !errorLocketData && <p className="col-12 text-center">Tidak ada data locket untuk ditampilkan.</p>}
+                : !loadingLocketData && !errorLocketDataWeek && <p className="col-12 text-center">Tidak ada data locket untuk ditampilkan.</p>}
             </div>
 
-            <div className="col-6 px-4 d-flex flex-wrap">{weekLocketData && <LineChart data={weekLocketData} />}</div>
+            <div className="col-12 col-md-6  d-flex flex-wrap">{weekLocketData && <LineChart data={weekLocketData} />}</div>
           </div>
         </div>
         <div className="col-12 boxLayananAntrian my-3 p-4">
@@ -217,8 +228,8 @@ function Dashboard() {
             </select>
           </div>
           <div className="d-flex flex-wrap align-items-center mt-4 mb-3">
-            <div className="col-6 d-flex flex-wrap">{filteredLocketData && <DoughnutChart data={filteredLocketData} />}</div>
-            <div className="col-6 px-1 d-flex flex-wrap justify-content-between">
+            <div className="col-12 col-md-6 d-flex flex-wrap">{filteredLocketData && <DoughnutChart data={filteredLocketData} />}</div>
+            <div className="col-12 col-md-6 px-1 d-flex flex-wrap justify-content-between">
               {filteredDataMapped && Object.keys(filteredDataMapped).length > 0
                 ? Object.keys(filteredDataMapped).map((locketLabel) => (
                     <div className="col-6 p-2" key={locketLabel}>

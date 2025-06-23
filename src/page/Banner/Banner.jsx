@@ -6,16 +6,23 @@ import { MdClose } from 'react-icons/md';
 import { decryptData } from '../../component/Encrypt/Encrypt';
 import { useSelector } from 'react-redux';
 import Swal from 'sweetalert2';
+import { FaBars } from 'react-icons/fa';
 
 function Banner() {
   const [videoPreviewUrl, setVideoPreviewUrl] = useState('');
   const [sliderText, setSliderText] = useState('');
   const [initialSliderText, setInitialSliderText] = useState('');
   const [token, setToken] = useState('');
+  const [isUploading, setIsUploading] = useState(false);
+  const [isSidebarOpen, setSidebarOpen] = useState(false);
 
   const [videoFile, setVideoFile] = useState(null);
   const fileInputRef = useRef(null);
   const encryptedUser = useSelector((state) => state.token);
+
+  const toggleSidebar = () => {
+    setSidebarOpen(!isSidebarOpen);
+  };
 
   // --- Fungsi untuk menangani perubahan file (baik dari klik atau drag-and-drop) ---
   const handleFileChange = (file) => {
@@ -153,6 +160,7 @@ function Banner() {
     const formData = new FormData();
     formData.append('file', videoFile);
 
+    setIsUploading(true);
     try {
       const response = await fetch(`${import.meta.env.VITE_SAVE_VIDEO}`, {
         method: 'POST',
@@ -186,6 +194,8 @@ function Banner() {
         text: `Terjadi kesalahan saat menyimpan data: ${error.message}`,
         confirmButtonText: 'Oke',
       });
+    } finally {
+      setIsUploading(false);
     }
   };
 
@@ -278,9 +288,14 @@ function Banner() {
   return (
     <div className="d-flex flex-wrap vh-100">
       <div className="col-0 col-xl-2 backgroundSmoke">
-        <Sidebar />
+        <Sidebar isOpen={isSidebarOpen} toggle={toggleSidebar} />
       </div>
       <div className="col-12 col-xl-10 backgroundSmoke d-flex flex-column p-3">
+        <div className="hamburger-container d-xl-none">
+          <button className="hamburger-button" onClick={toggleSidebar}>
+            <FaBars />
+          </button>
+        </div>
         <Usernavbar />
         <div className="col-12 boxLayananHariIni mt-3 p-4">
           <div className="d-flex flex-wrap justify-content-between align-items-center px-3">
@@ -309,9 +324,15 @@ function Banner() {
               onDragLeave={handleDragLeave}
               onDrop={handleDrop}
             >
-              {videoPreviewUrl ? (
+              {isUploading ? (
+                <div className="loading-overlay">
+                  <div className="loading-spinner"></div>
+                  <p className="upload-text mt-3">Mengunggah Video...</p>
+                  <p className="upload-subtext">Mohon tunggu sebentar, ini mungkin memakan waktu beberapa saat.</p>
+                </div>
+              ) : videoPreviewUrl ? (
                 <div className="video-preview-container">
-                  <video src={videoPreviewUrl} controls className="video-preview"></video>
+                  <video src={videoPreviewUrl} controls className="video-preview" key={videoPreviewUrl}></video>
                   <button
                     onClick={(e) => {
                       e.preventDefault();

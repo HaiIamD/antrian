@@ -10,7 +10,7 @@ import Swal from 'sweetalert2';
 import { decryptData } from '../../component/Encrypt/Encrypt';
 import { Link } from 'react-router-dom';
 
-function Sidebar() {
+function Sidebar({ isOpen, toggle }) {
   const location = useLocation();
   const path = location.pathname;
   const dispatch = useDispatch();
@@ -93,7 +93,10 @@ function Sidebar() {
   }, []);
 
   return (
-    <div className="col-6 col-md-4 col-xl-2 px-2 d-flex flex-column justify-content-between align-items-center vh-100 sideBar">
+    <div className={`${isOpen ? 'show' : ''} col-6 col-md-4 col-xl-2 px-2 d-flex flex-column justify-content-between align-items-center vh-100 sideBar`}>
+      <button className="close-button d-xl-none" onClick={toggle}>
+        &times; {/* Simbol 'X' */}
+      </button>
       <div className="col-12 mt-4 pt-1">
         <div className="d-flex flex-wrap align-items-center">
           <img src="/assets/logo.png" alt="Kemenkumham Logo" className="logoSidebar" />

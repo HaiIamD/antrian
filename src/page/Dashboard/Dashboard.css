@@ -73,3 +73,80 @@ body::-webkit-scrollbar {
   -moz-appearance: none;
   background-image: none;
 }
+/* --- PERUBAHAN DI SINI: TAMBAHKAN MEDIA QUERY --- */
+
+@media (max-width: 992px) {
+  .dataLocket,
+  .dataLocketBlue {
+    font-size: 70px; /* Kecilkan font di tablet */
+  }
+
+  .dataLocketHistory {
+    font-size: 48px;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .primaryTextTitle {
+    font-size: 18px; /* Kecilkan judul di mobile */
+  }
+
+  .kotakDashboard,
+  .kotakDashboardBlue {
+    height: auto; /* Biarkan tinggi menyesuaikan konten */
+    min-height: 150px; /* Beri tinggi minimal */
+    padding: 20px 0;
+  }
+
+  .dataLocket,
+  .dataLocketBlue {
+    font-size: 60px; /* Kecilkan font lagi di mobile */
+  }
+
+  .kotakLockethistory {
+    min-height: 120px; /* Kurangi tinggi minimal di mobile */
+    font-size: 14px;
+  }
+
+  .dataLocketHistory {
+    font-size: 40px; /* Kecilkan font di mobile */
+  }
+}
+
+/* Styling untuk penampung dan tombol hamburger */
+.hamburger-container {
+  width: 100%;
+  padding: 10px 1rem;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  margin-bottom: 1rem; /* Beri jarak dengan konten di bawahnya */
+}
+
+.hamburger-button {
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: var(--primaryColor);
+  cursor: pointer;
+}
+
+/* Styling untuk overlay gelap */
+.sidebar-overlay::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1039; /* Di bawah sidebar, di atas konten */
+  display: none; /* Defaultnya tersembunyi */
+}
+
+/* Tampilkan overlay hanya di layar kecil saat sidebar terbuka */
+@media (max-width: 1199.98px) {
+  .sidebar-overlay.sidebar-overlay::before {
+    display: block;
+  }
+}

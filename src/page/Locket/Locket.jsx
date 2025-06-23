@@ -7,6 +7,7 @@ import './Locket.css';
 import Swal from 'sweetalert2';
 import { decryptData } from '../../component/Encrypt/Encrypt';
 import { useSelector } from 'react-redux';
+import { FaBars } from 'react-icons/fa';
 
 const socket = io(`${import.meta.env.VITE_SOCKET_PORT}`);
 
@@ -17,6 +18,11 @@ function Locket() {
   const [token, setToken] = useState('');
   const [user, setUser] = useState(null); // Ubah menjadi null atau objek kosong
   const [dataLocket, setDataLocket] = useState(null);
+  const [isSidebarOpen, setSidebarOpen] = useState(false);
+
+  const toggleSidebar = () => {
+    setSidebarOpen(!isSidebarOpen);
+  };
 
   useEffect(() => {
     if (encryptedUser && encryptedData) {
@@ -204,39 +210,47 @@ function Locket() {
   return (
     <div className="d-flex flex-wrap vh-100">
       <div className="col-0 col-xl-2 backgroundSmoke">
-        <Sidebar />
+        <Sidebar isOpen={isSidebarOpen} toggle={toggleSidebar} />
       </div>
       <div className="col-12 col-xl-10 backgroundSmoke d-flex flex-column p-3">
+        <div className="hamburger-container d-xl-none">
+          <button className="hamburger-button" onClick={toggleSidebar}>
+            <FaBars />
+          </button>
+        </div>
         <Usernavbar />
         <div className="col-12 boxLayananHariIni mt-3 p-5 d-flex flex-column justify-content-center align-items-center">
-          <div className="col-8 kotakAntrianSekarang d-flex flex-column justify-content-center align-items-center p-4">
+          <div className="col-12 col-xl-8 kotakAntrianSekarang d-flex flex-column justify-content-center align-items-center p-4">
             <span className="titleLiveAntrianLocket text-center">
               Antrian <br />
               Sekarang
             </span>
             <span className="nomerLiveAntrianLocket">{dataLocket?.currentQueue ?? 0}</span>
           </div>
-          <div className="col-8 mt-4 d-flex flex-wrap justify-content-between align-items-center">
-            <div className="col-4 pe-2 py-2 ">
+          <div className="col-12 col-xl-8 mt-4 d-flex flex-wrap justify-content-between align-items-center">
+            <div className="col-12 col-md-4 p-2 ">
               <div className="kotakLocket d-flex flex-column justify-content-center align-items-center ">
                 <span className="titleKotakLocket text-center">Antrian Sebelumnya</span>
                 <span className="nomerKotakLocket">{dataLocket?.lastTakenNumber ?? 0}</span>
               </div>
             </div>
-            <div className="col-4 px-2 py-2 ">
+            <div className="col-12 col-md-4 p-2 ">
               <div className="kotakLocket d-flex flex-column justify-content-center align-items-center ">
                 <span className="titleKotakLocket text-center">Total Antrian</span>
                 <span className="nomerKotakLocket">{dataLocket?.totalQueue ?? 0}</span>
               </div>
             </div>
-            <div className="col-4 ps-2 py-2 ">
+            <div className="col-12 col-md-4 p-2 ">
               <div className="kotakLocket d-flex flex-column justify-content-center align-items-center ">
                 <span className="titleKotakLocket text-center">Antrian Selanjutnya</span>
                 <span className="nomerKotakLocket">{dataLocket?.nextQueue ?? 0}</span>
               </div>
             </div>
           </div>
-          <div className="col-8 buttonPanggil d-flex flex-column justify-content-center align-items-center p-2 py-3 mt-4" onClick={handlePanggilBerikutnya}>
+          <div
+            className="col-12 col-xl-8 buttonPanggil d-flex flex-column justify-content-center align-items-center p-2 py-3 mt-4"
+            onClick={handlePanggilBerikutnya}
+          >
             Panggil Antrian selanjutnya
           </div>
         </div>

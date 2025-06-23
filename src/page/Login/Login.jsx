@@ -13,9 +13,11 @@ function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [failed, setFailed] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const loginAPI = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
     try {
       const fetchData = await fetch(`${import.meta.env.VITE_LOGIN_URL}`, {
         method: 'POST',
@@ -37,13 +39,20 @@ function Login() {
           })
         );
         Swal.fire({
+          toast: true, // Kunci utama untuk mengubah jadi toast
+          position: 'top-end', // Posisi ideal: pojok kanan atas
           icon: 'success',
-          title: 'Login Berhasil!',
-          text: 'Anda akan dialihkan ke halaman utama.',
+          title: 'Login berhasil!',
           showConfirmButton: false,
-          timer: 2000, // Swal akan hilang otomatis setelah 2 detik
+          timer: 3000, // Beri waktu sedikit lebih lama agar mudah terbaca
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            // Fungsionalitas tambahan: timer berhenti jika mouse diarahkan ke notifikasi
+            toast.onmouseenter = Swal.stopTimer;
+            toast.onmouseleave = Swal.resumeTimer;
+          },
         }).then(() => {
-          // Navigasi setelah Swal menutup
+          // Navigasi setelah Swal menutup (logika tetap sama)
           if (data.user.role === 'admin') {
             navigate('/dashboard');
           } else {
@@ -53,9 +62,11 @@ function Login() {
       } else {
         const data = await fetchData.json();
         setFailed(data.error);
+        setIsLoading(false);
       }
     } catch (error) {
       setFailed('Gagal melakukan Login. Cek koneksi Anda.');
+      setIsLoading(false);
     }
   };
 
@@ -108,8 +119,8 @@ function Login() {
                 placeholder="*******"
               />
             </div>
-            <button type="submit" className="col-12 mb-3 mt-5 rounded-3 buttonLogin border-0">
-              Login
+            <button type="submit" disabled={isLoading} className="col-12 mb-3 mt-5 rounded-3 buttonLogin border-0">
+              {isLoading ? 'Memproses...' : 'Login'}
             </button>
           </form>
         </div>
