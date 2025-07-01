@@ -6,14 +6,18 @@ import DoughnutChart from '../../component/Chart/Piechart';
 import './Dashboard.css';
 import Swal from 'sweetalert2';
 import { FaBars } from 'react-icons/fa';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import { subDays } from 'date-fns';
 
 function Dashboard() {
+  const today = new Date();
+
   const [locketDataToday, setLocketDataToday] = useState([]);
   const [weekLocketData, setWeekLocketData] = useState(null);
   const [locketDataMapped, setLocketDataMapped] = useState({});
   const [filteredLocketData, setFilteredLocketData] = useState(null);
   const [filteredDataMapped, setFiltedDataMapped] = useState(null);
-  const [selectedDays, setSelectedDays] = useState(30);
   const [isSidebarOpen, setSidebarOpen] = useState(false);
 
   const [loadingLocketData, setLoadingLocketData] = useState(true);
@@ -21,27 +25,37 @@ function Dashboard() {
   const [errorLocketDataWeek, setErrorLocketDataWeek] = useState(null);
   const [loadingFilterData, setLoadingFilterData] = useState(false);
   const [errorFilterData, setErrorFilterData] = useState(null);
+  const [dateRange, setDateRange] = useState([subDays(today, 7), subDays(today, 1)]);
+  const [startDate, endDate] = dateRange;
+
+  useEffect(() => {
+    if (startDate && endDate) {
+      fetchFilteredLocketData(startDate, endDate);
+    }
+  }, [dateRange]);
 
   const toggleSidebar = () => {
     setSidebarOpen(!isSidebarOpen);
   };
 
-  const fetchFilteredLocketData = async (days) => {
+  const fetchFilteredLocketData = async (startDate, endDate) => {
     try {
       setLoadingFilterData(true);
       setErrorFilterData(null);
 
       // Panggil endpoint dengan query parameter 'days'
-      const response = await fetch(`${import.meta.env.VITE_FILTER_QUEUE}?days=${days}`, {
+      const response = await fetch(`${import.meta.env.VITE_FILTER_QUEUE}?startDate=${startDate}&endDate=${endDate} `, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
         },
       });
-
       if (!response.ok) {
+        setLoadingFilterData(false);
+        setFiltedDataMapped({});
+        setFilteredLocketData(null);
         const errorResult = await response.json();
-        throw new Error(errorResult.error || `Gagal mengambil data locket ${days} Hari.`);
+        throw new Error(errorResult.error || `Gagal mengambil data locket.`);
       }
 
       const data = await response.json();
@@ -61,13 +75,15 @@ function Dashboard() {
         setFiltedDataMapped({});
       }
     } catch (error) {
-      setErrorFilterData(error.message);
-      Swal.fire({
-        icon: 'error',
-        title: 'Error!',
-        text: error.message || 'Gagal memuat data filter locket. Silakan coba lagi.',
-        confirmButtonText: 'Oke',
-      });
+      // setErrorFilterData(error.message);
+      setLoadingFilterData(false);
+
+      // Swal.fire({
+      //   icon: 'error',
+      //   title: 'Error!',
+      //   text: error.message || 'Gagal memuat data filter locket. Silakan coba lagi.',
+      //   confirmButtonText: 'Oke',
+      // });
     } finally {
       setLoadingFilterData(false);
     }
@@ -125,7 +141,6 @@ function Dashboard() {
         }
 
         const data = await response.json();
-        console.log(data);
         setWeekLocketData(data);
         if (data && data.datasets) {
           const mappedData = {};
@@ -149,10 +164,6 @@ function Dashboard() {
     fetchLocketData();
     fetchWeekLocketData();
   }, []);
-
-  useEffect(() => {
-    fetchFilteredLocketData(selectedDays);
-  }, [selectedDays]);
 
   return (
     <div className={`d-flex flex-wrap ${isSidebarOpen ? 'sidebar-overlay' : ''}`}>
@@ -185,14 +196,14 @@ function Dashboard() {
         </div>
         <div className="col-12 boxLayananAntrian p-4">
           <div className="d-flex flex-wrap justify-content-between align-items-center px-3">
-            <span className="primaryTextTitle "> Aktivitas Layanan Antrian</span>
+            <span className="primaryTextTitle "> Aktivitas Layanan Antrean</span>
             <div className="px-4 py-1 tag" style={{ cursor: 'no-drop' }}>
               7 Hari
             </div>
           </div>
           <div className="d-flex flex-wrap align-items-center mt-4 mb-3">
             {errorLocketDataWeek && (
-              <p class=" col-12" style={{ color: 'red', textAlign: 'center' }}>
+              <p class=" col-12" style={{ textAlign: 'center' }}>
                 {errorLocketDataWeek}
               </p>
             )}
@@ -214,34 +225,54 @@ function Dashboard() {
         </div>
         <div className="col-12 boxLayananAntrian my-3 p-4">
           <div className="d-flex flex-wrap justify-content-between align-items-center px-3">
-            <span className="primaryTextTitle "> History Layanan Antrian</span>
+            <span className="primaryTextTitle "> History Layanan Antrean</span>
 
-            <select
-              className=" px-4 py-1 tag no-arrow"
-              value={selectedDays}
-              onChange={(e) => setSelectedDays(parseInt(e.target.value))}
-              disabled={loadingFilterData}
-            >
-              <option value={30}>30 Hari</option>
-              <option value={180}>6 Bulan</option>
-              <option value={365}>1 Tahun</option>
-            </select>
+            <div>
+              <DatePicker
+                selectsRange={true}
+                startDate={startDate}
+                endDate={endDate}
+                onChange={(update) => {
+                  setDateRange(update);
+                }}
+                isClearable={true}
+                maxDate={today}
+                placeholderText="Pilih rentang tanggal"
+                className="px-5 py-1 tag text-center"
+                dateFormat="dd/MM/yyyy"
+              />
+            </div>
           </div>
           <div className="d-flex flex-wrap align-items-center mt-4 mb-3">
-            <div className="col-12 col-md-6 d-flex flex-wrap">{filteredLocketData && <DoughnutChart data={filteredLocketData} />}</div>
-            <div className="col-12 col-md-6 px-1 d-flex flex-wrap justify-content-between">
-              {filteredDataMapped && Object.keys(filteredDataMapped).length > 0
-                ? Object.keys(filteredDataMapped).map((locketLabel) => (
+            {/* [BARU] Kondisi utama untuk memeriksa apakah ada data untuk ditampilkan */}
+            {filteredLocketData && filteredLocketData.labels && filteredLocketData.labels.length > 0 ? (
+              // Jika ADA data, tampilkan kedua kolom (chart dan tabel)
+              <React.Fragment>
+                <div className="col-12 col-md-6 d-flex flex-wrap">
+                  <DoughnutChart data={filteredLocketData} />
+                </div>
+
+                <div className="col-12 col-md-6 px-1 d-flex flex-wrap justify-content-between">
+                  {Object.keys(filteredDataMapped).map((locketLabel) => (
                     <div className="col-6 p-2" key={locketLabel}>
                       <div className="kotakLockethistory d-flex flex-column justify-content-center align-items-center">
                         <span>{locketLabel}</span>
                         <span className="dataLocketHistory">{filteredDataMapped[locketLabel].total}</span>
                       </div>
                     </div>
-                  ))
-                : // Kondisi jika tidak ada data atau masih loading/error
-                  !loadingFilterData && !errorFilterData && <p className="col-12 text-center">Tidak ada data locket untuk periode ini.</p>}
-            </div>
+                  ))}
+                </div>
+              </React.Fragment>
+            ) : (
+              // [BARU] Jika TIDAK ADA data, tampilkan pesan ini di tengah
+              // Kondisi ini hanya berjalan jika tidak sedang loading dan tidak ada error
+              !loadingFilterData &&
+              !errorFilterData && (
+                <div className="col-12 text-center">
+                  <p>Tidak ada data loket untuk periode ini.</p>
+                </div>
+              )
+            )}
           </div>
         </div>
       </div>

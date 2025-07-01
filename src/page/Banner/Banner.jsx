@@ -299,7 +299,7 @@ function Banner() {
         <Usernavbar />
         <div className="col-12 boxLayananHariIni mt-3 p-4">
           <div className="d-flex flex-wrap justify-content-between align-items-center px-3">
-            <span className="primaryTextTitle "> Slider Antrian</span>
+            <span className="primaryTextTitle "> Slider Antrean</span>
             <div className="px-4 py-1 tag" onClick={handleSaveConfirmation}>
               SAVE
             </div>

@@ -75,7 +75,7 @@ function Antrian() {
 
     socket.on('antrianDipanggil', ({ loketId, nomorAntrian, locketData }) => {
       const loketNomor = loketId.replace('loket', ''); // 'loket1' -> '1'
-      const text = `Nomor antrian ${nomorAntrian}, silakan menuju ke loket ${loketNomor}`;
+      const text = `Nomor antrean ${nomorAntrian}, silakan menuju ke loket ${loketNomor}`;
 
       // Selalu tambahkan ke antrean TTS
       ttsQueue.current.push(text);
@@ -210,7 +210,7 @@ function Antrian() {
             <img src="/assets/logo.png" alt="Kemenkumham Logo" className="logo" />
             <span className="logoText px-3">
               KANTOR WILAYAH KEMENTERIAN HUKUM <br />
-              PROVINSI KEPULAUAN RIAU
+              KEPULAUAN RIAU
             </span>
           </div>
           <div className="logoText">
@@ -223,7 +223,7 @@ function Antrian() {
           {/* Kotak Antrian Utama (yang besar) */}
           <div className="col-12 col-lg-6 p-3">
             <div className="col-12 bg-warning kotakLiveAntrian d-flex flex-column justify-content-center align-items-center">
-              <span className="titleLiveAntrian">Antrian</span>
+              <span className="titleLiveAntrian">Antrean</span>
               <span className="nomerLiveAntrian">
                 {activeCall.nomorAntrian || '-'} {/* Tampilkan nomor yang sedang aktif dipanggil */}
               </span>
@@ -243,7 +243,7 @@ function Antrian() {
           {[1, 2, 3, 4].map((loketNum) => (
             <div className="col-6 col-md-3 p-2" key={loketNum}>
               <div className="col-12 bg-warning kotakLiveLocket d-flex flex-column justify-content-center align-items-center">
-                <span className="titleLiveLocket">Antrian</span>
+                <span className="titleLiveLocket">Antrean</span>
                 <span className="nomerLiveLocket">
                   {/* Selalu tampilkan locketDataTodayMapped karena ini adalah nomor persisten terakhir dipanggil */}
                   {locketDataTodayMapped[loketNum] || '0'}

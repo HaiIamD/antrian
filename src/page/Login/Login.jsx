@@ -88,7 +88,7 @@ function Login() {
           <img src="/assets/logo.png" alt="Kemenkumham Logo" className="logoLogin " />
           <span className="logoTextLogin ps-3 col-10">
             KANTOR WILAYAH KEMENTERIAN HUKUM <br />
-            PROVINSI KEPULAUAN RIAU
+            KEPULAUAN RIAU
           </span>
           <form className="col-12" onSubmit={loginAPI}>
             <div className="d-flex flex-column mt-5 ">

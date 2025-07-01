@@ -127,7 +127,7 @@ function Locket() {
           Swal.fire({
             icon: 'info',
             title: 'Antrean Baru!', // Ubah judul
-            text: `Nomor antrian baru telah diambil. Total: ${data.totalQueue}.`,
+            text: `Nomor antrean baru telah diambil. Total: ${data.totalQueue}.`,
             toast: true,
             position: 'top-end',
             showConfirmButton: false,
@@ -172,8 +172,8 @@ function Locket() {
     }
 
     Swal.fire({
-      title: 'Panggil Antrian Selanjutnya?',
-      text: `Anda akan memanggil antrian Nomor ${dataLocket?.nextQueue || '...'} untuk Loket ${loket}.`,
+      title: 'Panggil Antrean Selanjutnya?',
+      text: `Anda akan memanggil antrean Nomor ${dataLocket?.nextQueue || '...'} untuk Loket ${loket}.`,
       icon: 'question',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -186,7 +186,7 @@ function Locket() {
         Swal.fire({
           icon: 'info',
           title: 'Memanggil...',
-          text: `Antrian Nomor ${dataLocket?.nextQueue || '...'} sedang dipanggil.`,
+          text: `Antrean Nomor ${dataLocket?.nextQueue || '...'} sedang dipanggil.`,
           toast: true,
           position: 'top-end',
           showConfirmButton: false,
@@ -197,7 +197,7 @@ function Locket() {
         Swal.fire({
           icon: 'info',
           title: 'Dibatalkan',
-          text: 'Panggilan antrian dibatalkan.',
+          text: 'Panggilan antrean dibatalkan.',
           toast: true,
           position: 'top-end',
           showConfirmButton: false,
@@ -222,7 +222,7 @@ function Locket() {
         <div className="col-12 boxLayananHariIni mt-3 p-5 d-flex flex-column justify-content-center align-items-center">
           <div className="col-12 col-xl-8 kotakAntrianSekarang d-flex flex-column justify-content-center align-items-center p-4">
             <span className="titleLiveAntrianLocket text-center">
-              Antrian <br />
+              Antrean <br />
               Sekarang
             </span>
             <span className="nomerLiveAntrianLocket">{dataLocket?.currentQueue ?? 0}</span>
@@ -230,19 +230,19 @@ function Locket() {
           <div className="col-12 col-xl-8 mt-4 d-flex flex-wrap justify-content-between align-items-center">
             <div className="col-12 col-md-4 p-2 ">
               <div className="kotakLocket d-flex flex-column justify-content-center align-items-center ">
-                <span className="titleKotakLocket text-center">Antrian Sebelumnya</span>
+                <span className="titleKotakLocket text-center">Antrean Sebelumnya</span>
                 <span className="nomerKotakLocket">{dataLocket?.lastTakenNumber ?? 0}</span>
               </div>
             </div>
             <div className="col-12 col-md-4 p-2 ">
               <div className="kotakLocket d-flex flex-column justify-content-center align-items-center ">
-                <span className="titleKotakLocket text-center">Total Antrian</span>
+                <span className="titleKotakLocket text-center">Total Antrean</span>
                 <span className="nomerKotakLocket">{dataLocket?.totalQueue ?? 0}</span>
               </div>
             </div>
             <div className="col-12 col-md-4 p-2 ">
               <div className="kotakLocket d-flex flex-column justify-content-center align-items-center ">
-                <span className="titleKotakLocket text-center">Antrian Selanjutnya</span>
+                <span className="titleKotakLocket text-center">Antrean Selanjutnya</span>
                 <span className="nomerKotakLocket">{dataLocket?.nextQueue ?? 0}</span>
               </div>
             </div>

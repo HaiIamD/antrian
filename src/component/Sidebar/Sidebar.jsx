@@ -23,7 +23,7 @@ function Sidebar({ isOpen, toggle }) {
     if (!user || !user.locket || !token) {
       Swal.fire({
         icon: 'error',
-        title: 'Gagal Menyimpan Antrian',
+        title: 'Gagal Menyimpan Antrean',
         text: 'Informasi locket pengguna tidak ditemukan. Silakan coba login ulang.',
         confirmButtonText: 'Oke',
       });
@@ -31,8 +31,8 @@ function Sidebar({ isOpen, toggle }) {
     }
 
     Swal.fire({
-      title: 'Konfirmasi Simpan Antrian',
-      text: 'Apakah Anda yakin ingin menyimpan antrian harian? Tindakan ini akan mencatat total antrean hari ini.',
+      title: 'Konfirmasi Simpan Antrean',
+      text: 'Apakah Anda yakin ingin menyimpan antrean harian? Tindakan ini akan mencatat total antrean hari ini.',
       icon: 'question',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -55,7 +55,7 @@ function Sidebar({ isOpen, toggle }) {
 
           if (!response.ok) {
             const errorResult = await response.json();
-            throw new Error(errorResult.error || `Gagal menyimpan antrian: ${response.statusText}`);
+            throw new Error(errorResult.error || `Gagal menyimpan antrean: ${response.statusText}`);
           }
 
           const data = await response.json();
@@ -63,14 +63,14 @@ function Sidebar({ isOpen, toggle }) {
           Swal.fire({
             icon: 'success',
             title: 'Berhasil!',
-            text: data.message || 'Antrian harian berhasil disimpan.',
+            text: data.message || 'Antrean harian berhasil disimpan.',
             confirmButtonText: 'Oke',
           });
         } catch (error) {
           Swal.fire({
             icon: 'error',
             title: 'Gagal!',
-            text: error.message || 'Terjadi kesalahan saat menyimpan antrian. Silakan coba lagi.',
+            text: error.message || 'Terjadi kesalahan saat menyimpan antrean. Silakan coba lagi.',
             confirmButtonText: 'Oke',
           });
         }
@@ -101,8 +101,9 @@ function Sidebar({ isOpen, toggle }) {
         <div className="d-flex flex-wrap align-items-center">
           <img src="/assets/logo.png" alt="Kemenkumham Logo" className="logoSidebar" />
           <span className="logoTextSidebar ps-2">
-            KANTOR KEMENTERIAN HUKUM <br />
-            PROVINSI KEPULAUAN RIAU
+            KANTOR WILAYAH <br /> KEMENTRIAN HUKUM
+            <br />
+            KEPULAUAN RIAU
           </span>
         </div>
         <div className="col-12 d-flex flex-column mt-4">
@@ -142,12 +143,12 @@ function Sidebar({ isOpen, toggle }) {
       </div>
       <div className="col-12 px-2 mb-3">
         <div className="d-flex flex-column kotakLogout p-3">
-          {user?.role === 'staff' && <span className=" col-12 textWhite my-4">Jangan lupa simpan antrian harian sebelum pulang !</span>}
+          {user?.role === 'staff' && <span className=" col-12 textWhite my-4">Jangan lupa simpan antrean harian sebelum pulang !</span>}
           {user?.role === 'admin' && <span className=" col-12 textWhite my-4">Semoga hari ini berjalan lancar dan menyenangkan ✨</span>}
           <div className="col-12 d-flex flex-column justify-content-center align-items-center">
             {user?.role === 'staff' && (
               <div className="col-10 buttonSimpanAntrian text-center my-2" onClick={handleSimpanAntrian}>
-                Simpan Antrian
+                Simpan Antrean
               </div>
             )}
             <div

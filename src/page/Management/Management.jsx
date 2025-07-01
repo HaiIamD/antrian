@@ -182,9 +182,6 @@ function Management() {
       if (newUserData.password) {
         dataToSend.password = newUserData.password;
       }
-
-      console.log(currentUser);
-
       const response = await fetch(`${import.meta.env.VITE_UPDATE_USER}/${currentUser._id}`, {
         method: 'PUT',
         headers: {
@@ -241,8 +238,6 @@ function Management() {
             Swal.showLoading();
           },
         });
-
-        console.log('userId', userId);
         try {
           const response = await fetch(`${import.meta.env.VITE_DELETE_USER}/${userId}`, {
             method: 'DELETE',

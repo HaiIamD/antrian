@@ -31,16 +31,6 @@ function Pengambilan() {
       if (result.isConfirmed) {
         // Kirim event ke server Socket.IO
         socket.emit('requestQueueNumber', { locketId });
-
-        // Tampilkan loading/proses ke pengguna
-        // Swal.fire({
-        //   title: 'Memproses...',
-        //   text: 'Sedang mengambil nomor antrean Anda. Mohon tunggu.',
-        //   allowOutsideClick: false,
-        //   didOpen: () => {
-        //     Swal.showLoading();
-        //   },
-        // });
       }
     });
   };
@@ -51,13 +41,50 @@ function Pengambilan() {
     socket.on('queueNumberAssigned', ({ locketId, nomorAntrian }) => {
       Swal.close();
       Swal.fire({
-        icon: 'success',
-        title: 'Nomor Antrean Anda:',
-        html: `<h1>${nomorAntrian}</h1><p>Silakan tunggu panggilan di Loket ${locketId}</p>`,
+        html: `
+          <p style="font-weight: bold;">Nomor antrean Anda adalah:</p>
+          <h1 style="font-size: 4.5rem; margin: 10px 0;">${nomorAntrian}</h1>
+          <p style="font-weight: bold;">Silakan tunggu hingga nomor Anda dipanggil.</p>
+          <hr>
+          <p style="font-size: 0.9em;">Jika struk antrean tidak keluar, silakan klik tombol "Cetak Ulang".</p>
+        `,
         confirmButtonText: 'Oke',
         allowOutsideClick: false,
+        showDenyButton: true,
+        denyButtonText: 'Cetak Ulang',
+      }).then((result) => {
+        if (result.isDenied) {
+          socket.emit('reprintTicket', { locketId, nomorAntrian });
+
+          Swal.fire({
+            toast: true,
+            position: 'top-end',
+            icon: 'info',
+            title: 'Perintah cetak ulang dikirim!',
+            showConfirmButton: false,
+            timer: 2000,
+          });
+        }
       });
-      // Di sini Anda bisa menambahkan logika untuk mencetak nomor antrean jika ada printer thermal, dll.
+    });
+
+    socket.on('reprintSuccess', ({ message }) => {
+      Swal.fire({
+        toast: true,
+        position: 'top-end',
+        icon: 'success',
+        title: message || 'Berhasil dicetak ulang!',
+        showConfirmButton: false,
+        timer: 3000,
+      });
+    });
+
+    socket.on('reprintError', ({ message }) => {
+      Swal.fire({
+        icon: 'error',
+        title: 'Gagal Mencetak Ulang',
+        text: message || 'Tidak dapat mencetak ulang struk.',
+      });
     });
 
     // Event ketika terjadi error saat mengambil nomor antrean
@@ -74,15 +101,18 @@ function Pengambilan() {
     return () => {
       socket.off('queueNumberAssigned');
       socket.off('queueAssignmentError');
+      socket.off('reprintSuccess');
+      socket.off('reprintError');
     };
-  }, []); // [] agar hanya dijalankan sekali saat komponen dimuat
+  }, []);
 
   return (
     <div className="container-fluid gambarBackground col-12">
-      <div className="col-3 d-flex justify-content-end align-items-center absoluteImage d-none d-md-flex">
+      <div className="col-5 d-flex justify-content-end align-items-center absoluteImage d-none d-md-flex">
         <img src="/assets/logo.png" alt="Kemenkumham Logo" className="logo" />
         <span className="logoText px-3">
-          LAYANAN ANTRIAN KEMENTERIAN <br /> HUKUM KEPULAUAN RIAU
+          KANTOR WILAYAH <br /> KEMENTERIAN HUKUM <br />
+          KEPULAUAN RIAU
         </span>
       </div>
 
@@ -90,7 +120,7 @@ function Pengambilan() {
         <span className="titleSelection mb-4 text-center">Silahkan Memilih Jenis Layanan</span>
 
         {/* --- PERUBAHAN 1: Buat container lebih fleksibel --- */}
-        <div className="col-12 col-md-10 col-lg-8 col-xl-6 d-flex flex-wrap justify-content-center align-items-center gap-2 gap-sm-4">
+        <div className="col-12 col-md-10 col-xl-6 d-flex flex-wrap justify-content-center align-items-center gap-2 gap-sm-4">
           {layananData.map((layanan) => (
             <div
               key={layanan.id}
