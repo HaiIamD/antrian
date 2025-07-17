@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { io } from 'socket.io-client'; // Import Socket.IO
 import './Pengambilan.css';
 import Swal from 'sweetalert2'; // Import SweetAlert2
@@ -16,6 +16,28 @@ const layananData = [
 ];
 
 function Pengambilan() {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const showLoadingSwal = () => {
+    setIsLoading(true);
+    Swal.fire({
+      title: 'Memproses...',
+      text: 'Mohon tunggu sebentar, antrean sedang diproses.',
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+      },
+    });
+  };
+
+  const hideLoadingSwal = () => {
+    if (Swal.isVisible()) {
+      // Pastikan SweetAlert sedang terbuka sebelum mencoba menutup
+      Swal.close();
+    }
+    setIsLoading(false); // Update state loading
+  };
+
   // Fungsi untuk menangani klik pada kotak layanan
   const handleLayananClick = (locketId, locketName) => {
     Swal.fire({
@@ -29,6 +51,7 @@ function Pengambilan() {
       cancelButtonText: 'Batal',
     }).then((result) => {
       if (result.isConfirmed) {
+        showLoadingSwal();
         // Kirim event ke server Socket.IO
         socket.emit('requestQueueNumber', { locketId });
       }
@@ -39,7 +62,7 @@ function Pengambilan() {
   React.useEffect(() => {
     // Event ketika nomor antrean berhasil diberikan
     socket.on('queueNumberAssigned', ({ locketId, nomorAntrian }) => {
-      Swal.close();
+      hideLoadingSwal();
       Swal.fire({
         html: `
           <p style="font-weight: bold;">Nomor antrean Anda adalah:</p>

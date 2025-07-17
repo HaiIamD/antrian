@@ -238,7 +238,7 @@ function Dashboard() {
                 isClearable={true}
                 maxDate={today}
                 placeholderText="Pilih rentang tanggal"
-                className="px-5 py-1 tag text-center"
+                className="col-12 px-5 py-1 tag text-center"
                 dateFormat="dd/MM/yyyy"
               />
             </div>
