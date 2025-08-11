@@ -140,7 +140,7 @@ function Pengambilan() {
             {layananData.map((layanan) => (
               <div
                 key={layanan.id}
-                className="kotakLayanan d-flex flex-column align-items-center justify-content-center text-center col-5 col-sm-6 col-lg-5 p-3 p-md-4"
+                className="kotakLayanan d-flex flex-column align-items-center justify-content-center text-center col-5 col-sm-7 col-lg-5 p-3 p-md-4"
                 onClick={() => handleLayananClick(layanan.id, layanan.nama)}
               >
                 <div className="iconKotakLayanan">
