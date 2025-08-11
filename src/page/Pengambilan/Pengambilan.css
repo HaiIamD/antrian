@@ -1,10 +1,17 @@
 .gambarBackground {
   display: flex;
-  background-image: var(--gambar); /* Path ke gambar yang ingin Anda gunakan */
-  background-size: cover; /* Untuk mengisi area dengan gambar */
-  background-position: center; /* Untuk memposisikan gambar di tengah-tengah */
-  height: 100%; /* Sesuaikan tinggi dengan kebutuhan Anda */
-  position: absolute; /* Untuk memungkinkan konten lain di atas gambar */
+  background-image: var(--gambar_vertikal);
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
+  position: absolute;
+}
+.sectionAtas {
+  min-height: 92vh;
+}
+
+.sectionBawah {
+  background-color: var(--white);
 }
 
 .absoluteImage {
@@ -30,6 +37,21 @@
   color: var(--primaryColor);
   text-transform: uppercase;
 }
+
+.titleSelectionVertikal {
+  font-size: 20pt;
+  font-weight: 600;
+  color: var(--white);
+  text-transform: uppercase;
+}
+
+.subTitleSelectionVertikal {
+  font-size: 15pt;
+  font-weight: lighter;
+  color: var(--white);
+  text-transform: uppercase;
+  margin-top: -10px;
+}
 :root {
   --primaryColor: #0d2344;
   --glow-color-rgba: rgba(13, 35, 68, 0.25);
@@ -44,7 +66,7 @@ body {
   position: relative;
   overflow: hidden;
   z-index: 1;
-  height: 380px;
+  height: 300px;
   border-radius: 25px;
   border: 1px solid #f0f0f0;
   background: #fff;
@@ -59,7 +81,7 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  background: var(--primaryColor);
+  /* background: var(--primaryColor); */
   opacity: 0;
   transition: opacity 0.4s var(--smooth-easing);
   z-index: -1;
@@ -88,16 +110,16 @@ body {
 
 .namaLayanan {
   font-size: 22px;
-  font-weight: 600;
+  font-weight: 700;
   line-height: 1.4;
   color: var(--primaryColor);
   transition: color 0.4s var(--smooth-easing);
+  font-style: italic;
 }
 
-.kotakLayanan:hover .namaLayanan {
-  color: #fff;
+.imageFotter {
+  height: 3rem;
 }
-
 @media (hover: none) and (pointer: coarse) {
   .kotakLayanan:active {
     transform: scale(0.96);

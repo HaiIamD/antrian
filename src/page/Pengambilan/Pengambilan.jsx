@@ -9,10 +9,10 @@ import { HiLightBulb } from 'react-icons/hi';
 const socket = io(`${import.meta.env.VITE_SOCKET_PORT}`);
 
 const layananData = [
-  { id: 1, nama: 'Pelayanan Hukum Umum', icon: <FaBook /> },
-  { id: 2, nama: 'Kekayaan Intelektual', icon: <HiLightBulb /> },
-  { id: 3, nama: 'Layanan Hukum', icon: <FaBalanceScale /> },
-  { id: 4, nama: 'Disabilitas dan Pengaduan Masyarakat', icon: <FaWheelchair /> },
+  { id: 1, nama: 'Pelayanan Hukum Umum', src: '/assets/LOGO_AHU.png' },
+  { id: 2, nama: 'Kekayaan Intelektual', src: '/assets/ki.png' },
+  { id: 3, nama: 'Layanan Hukum', src: '/assets/scales-of-justice.png' },
+  { id: 4, nama: 'Disabilitas dan Pengaduan Masyarakat', src: '/assets/disabled_939181.png' },
 ];
 
 function Pengambilan() {
@@ -130,30 +130,33 @@ function Pengambilan() {
   }, []);
 
   return (
-    <div className="container-fluid gambarBackground col-12">
-      <div className="col-5 d-flex justify-content-end align-items-center absoluteImage d-none d-md-flex">
-        <img src="/assets/logo.png" alt="Kemenkumham Logo" className="logo" />
-        <span className="logoText px-3">
-          KANTOR WILAYAH <br /> KEMENTERIAN HUKUM <br />
-          KEPULAUAN RIAU
-        </span>
-      </div>
-
-      <div className="col-12 d-flex flex-column justify-content-center align-items-center ">
-        <span className="titleSelection mb-4 text-center">Silahkan Memilih Jenis Layanan</span>
-
-        {/* --- PERUBAHAN 1: Buat container lebih fleksibel --- */}
-        <div className="col-12 col-md-10 col-xl-6 d-flex flex-wrap justify-content-center align-items-center gap-2 gap-sm-4">
-          {layananData.map((layanan) => (
-            <div
-              key={layanan.id}
-              className="kotakLayanan d-flex flex-column align-items-center justify-content-center text-center col-5 col-sm-6 col-lg-5 p-3 p-md-4"
-              onClick={() => handleLayananClick(layanan.id, layanan.nama)}
-            >
-              <div className="iconKotakLayanan">{layanan.icon}</div>
-              <span className="pt-3 namaLayanan">{layanan.nama}</span>
-            </div>
-          ))}
+    <div className="gambarBackground col-12">
+      <div className="col-12 d-flex flex-column justify-content-between align-content-between ">
+        <div className="col-12 d-flex flex-column justify-content-center align-items-center sectionAtas p-3 ">
+          <img src="/assets/logo.png" alt="Kemenkumham Logo" className="logo" />
+          <span className="titleSelectionVertikal text-center">KEMENTRIAN HUKUM</span>
+          <span className="subTitleSelectionVertikal mb-4 text-center">KANTOR WILAYAH KEPULAUAN RIAU</span>
+          <div className="col-12 col-md-10 col-xl-6 d-flex flex-wrap justify-content-center align-items-center gap-2 gap-sm-4">
+            {layananData.map((layanan) => (
+              <div
+                key={layanan.id}
+                className="kotakLayanan d-flex flex-column align-items-center justify-content-center text-center col-5 col-sm-6 col-lg-5 p-3 p-md-4"
+                onClick={() => handleLayananClick(layanan.id, layanan.nama)}
+              >
+                <div className="iconKotakLayanan">
+                  <img src={layanan.src} alt={layanan.nama} style={{ width: '110px', height: '110px' }} />
+                </div>
+                <span className="pt-3 namaLayanan">{layanan.nama}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="sectionBawah d-flex flex-wrap justify-content-center gap-3 p-3">
+          <img src="/assets/semakinPasti.png" alt="Semakin Pasti" className="imageFotter" />
+          <img src="/assets/berakhlak.png" alt="Berakhlak" className="imageFotter" />
+          <img src="/assets/banggaMelayaniBangsa.png" alt="Bangga Melayani Bangsa" className="imageFotter" />
+          <img src="/assets/INDONESIAEMAS.png" alt="INDONESIA EMAS" className="imageFotter" />
+          <img src="/assets/wbk.png" alt="WBK" className="imageFotter" />
         </div>
       </div>
     </div>
