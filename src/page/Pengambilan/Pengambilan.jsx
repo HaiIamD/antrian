@@ -9,7 +9,7 @@ import { HiLightBulb } from 'react-icons/hi';
 const socket = io(`${import.meta.env.VITE_SOCKET_PORT}`);
 
 const layananData = [
-  { id: 1, nama: 'Pelayanan Hukum Umum', src: '/assets/LOGO_AHU.png' },
+  { id: 1, nama: 'Pelayanan Administrasi Hukum Umum', src: '/assets/LOGO_AHU.png' },
   { id: 2, nama: 'Kekayaan Intelektual', src: '/assets/ki.png' },
   { id: 3, nama: 'Layanan Hukum', src: '/assets/scales-of-justice.png' },
   { id: 4, nama: 'Disabilitas dan Pengaduan Masyarakat', src: '/assets/disabled_939181.png' },
@@ -134,7 +134,7 @@ function Pengambilan() {
       <div className="col-12 d-flex flex-column justify-content-between align-content-between ">
         <div className="col-12 d-flex flex-column justify-content-center align-items-center sectionAtas p-3 ">
           <img src="/assets/logo.png" alt="Kemenkumham Logo" className="logo" />
-          <span className="titleSelectionVertikal text-center">KEMENTRIAN HUKUM</span>
+          <span className="titleSelectionVertikal text-center">KEMENTERIAN HUKUM</span>
           <span className="subTitleSelectionVertikal mb-4 text-center">KANTOR WILAYAH KEPULAUAN RIAU</span>
           <div className="col-12 col-md-10 col-xl-6 d-flex flex-wrap justify-content-center align-items-center gap-2 gap-sm-4">
             {layananData.map((layanan) => (
