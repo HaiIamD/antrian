@@ -10,9 +10,9 @@ const socket = io(`${import.meta.env.VITE_SOCKET_PORT}`);
 
 const layananData = [
   { id: 1, nama: 'Pelayanan Administrasi Hukum Umum', src: '/assets/LOGO_AHU.png' },
-  { id: 2, nama: 'Kekayaan Intelektual', src: '/assets/ki.png' },
-  { id: 3, nama: 'Layanan Hukum', src: '/assets/scales-of-justice.png' },
-  { id: 4, nama: 'Disabilitas dan Pengaduan Masyarakat', src: '/assets/disabled_939181.png' },
+  { id: 2, nama: 'Pelayanan Kekayaan Intelektual', src: '/assets/ki.png' },
+  { id: 3, nama: 'Layanan Hukum', src: '/assets/layanan_hukum.png' },
+  { id: 4, nama: 'Pelayanan Disabilitas dan Pengaduan Masyarakat', src: '/assets/disabled_939181.png' },
 ];
 
 function Pengambilan() {
