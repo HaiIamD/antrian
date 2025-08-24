@@ -115,6 +115,7 @@ body {
   color: var(--primaryColor);
   transition: color 0.4s var(--smooth-easing);
   font-style: italic;
+  white-space: pre-line;
 }
 
 .imageFotter {

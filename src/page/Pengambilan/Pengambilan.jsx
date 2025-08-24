@@ -146,7 +146,7 @@ function Pengambilan() {
                 <div className="iconKotakLayanan">
                   <img src={layanan.src} alt={layanan.nama} style={{ width: '110px', height: '110px' }} />
                 </div>
-                <span className="pt-3 namaLayanan">{layanan.nama}</span>
+                <span className="pt-3 namaLayanan"> {layanan.nama.replace(/^(Pelayanan|Layanan)/, '$1\n')}</span>
               </div>
             ))}
           </div>
