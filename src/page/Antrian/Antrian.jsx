@@ -37,15 +37,31 @@ function Antrian() {
     isSpeaking.current = true;
     const text = ttsQueue.current.shift();
 
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = 'id-ID';
+    fetch(`${import.meta.env.VITE_API_TTS}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ text }),
+    })
+      .then((response) => {
+        if (!response.ok) throw new Error('Gagal mengambil audio dari server');
+        return response.blob();
+      })
+      .then((audioBlob) => {
+        const audioUrl = URL.createObjectURL(audioBlob);
+        const audio = new Audio(audioUrl);
+        audio.play();
 
-    utterance.onend = () => {
-      isSpeaking.current = false;
-      processTTSQueue();
-    };
-
-    window.speechSynthesis.speak(utterance);
+        audio.onended = () => {
+          isSpeaking.current = false;
+          URL.revokeObjectURL(audioUrl);
+          processTTSQueue();
+        };
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+        isSpeaking.current = false;
+        processTTSQueue();
+      });
   };
 
   // Fungsi untuk memproses antrean UI (tampilan kotak utama)
